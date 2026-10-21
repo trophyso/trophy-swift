@@ -56,6 +56,7 @@ public final class AchievementsClient: Sendable {
     ///         request: .init(user: UpsertedUser(
     ///             email: "user@example.com",
     ///             tz: "Europe/London",
+    ///             subscribeToEmails: true,
     ///             id: "user-id"
     ///         ))
     ///     )

@@ -115,6 +115,7 @@ private func main() async throws {
         request: .init(user: UpsertedUser(
             email: "user@example.com",
             tz: "Europe/London",
+            subscribeToEmails: true,
             id: "user-id"
         ))
     )
