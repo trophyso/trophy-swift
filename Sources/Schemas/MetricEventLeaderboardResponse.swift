@@ -47,6 +47,8 @@ public struct MetricEventLeaderboardResponse: Codable, Hashable, Sendable {
     public let runUnit: LeaderboardResponseRunUnit?
     /// The interval between repetitions, relative to the start date and repetition type. Null for one-time leaderboards.
     public let runInterval: Int?
+    /// User attribute filters that a user must match to participate in this leaderboard and appear in its rankings.
+    public let userAttributes: [LeaderboardResponseUserAttributesItem]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -74,6 +76,7 @@ public struct MetricEventLeaderboardResponse: Codable, Hashable, Sendable {
         maxParticipants: Int? = nil,
         runUnit: LeaderboardResponseRunUnit? = nil,
         runInterval: Int? = nil,
+        userAttributes: [LeaderboardResponseUserAttributesItem],
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.end = end
@@ -99,6 +102,7 @@ public struct MetricEventLeaderboardResponse: Codable, Hashable, Sendable {
         self.maxParticipants = maxParticipants
         self.runUnit = runUnit
         self.runInterval = runInterval
+        self.userAttributes = userAttributes
         self.additionalProperties = additionalProperties
     }
 
@@ -127,6 +131,7 @@ public struct MetricEventLeaderboardResponse: Codable, Hashable, Sendable {
         self.maxParticipants = try container.decodeIfPresent(Int.self, forKey: .maxParticipants)
         self.runUnit = try container.decodeIfPresent(LeaderboardResponseRunUnit.self, forKey: .runUnit)
         self.runInterval = try container.decodeIfPresent(Int.self, forKey: .runInterval)
+        self.userAttributes = try container.decode([LeaderboardResponseUserAttributesItem].self, forKey: .userAttributes)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -156,6 +161,7 @@ public struct MetricEventLeaderboardResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.maxParticipants, forKey: .maxParticipants)
         try container.encodeIfPresent(self.runUnit, forKey: .runUnit)
         try container.encodeIfPresent(self.runInterval, forKey: .runInterval)
+        try container.encode(self.userAttributes, forKey: .userAttributes)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -183,5 +189,6 @@ public struct MetricEventLeaderboardResponse: Codable, Hashable, Sendable {
         case maxParticipants
         case runUnit
         case runInterval
+        case userAttributes
     }
 }

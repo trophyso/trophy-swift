@@ -12,7 +12,7 @@ public struct CreateAchievementRequestItem: Codable, Hashable, Sendable {
     public let status: CreateAchievementRequestItemStatus?
     /// An optional badge for the achievement.
     public let badge: CreateAchievementRequestItemBadge?
-    /// User attribute filters applied to the achievement. Each `attributeId` must be an active user attribute.
+    /// User attribute filters applied to the achievement.
     public let userAttributes: [CreateAchievementRequestItemUserAttributesItem]?
     /// Required if trigger is `api`. Only alphanumeric characters, hyphens, and underscores are permitted.
     public let key: String?

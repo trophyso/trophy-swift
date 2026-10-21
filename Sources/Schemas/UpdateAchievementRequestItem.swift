@@ -14,7 +14,7 @@ public struct UpdateAchievementRequestItem: Codable, Hashable, Sendable {
     public let status: UpdateAchievementRequestItemStatus?
     /// The updated badge, or `null` to clear it.
     public let badge: UpdateAchievementRequestItemBadge?
-    /// Updated user attribute filters. Send `null` to clear. Each `attributeId` must be an active user attribute.
+    /// Updated user attribute filters. Send `null` to clear.
     public let userAttributes: [UpdateAchievementRequestItemUserAttributesItem]?
     /// Updated key. Only permitted for API achievements.
     public let key: String?

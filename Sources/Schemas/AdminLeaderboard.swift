@@ -34,6 +34,8 @@ public struct AdminLeaderboard: Codable, Hashable, Sendable {
     public let runUnit: AdminLeaderboardRunUnit?
     /// The number of recurrence units between leaderboard runs.
     public let runInterval: Int?
+    /// User attribute filters.
+    public let userAttributes: [AdminLeaderboardUserAttributesItem]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -54,6 +56,7 @@ public struct AdminLeaderboard: Codable, Hashable, Sendable {
         breakdownAttributes: [String],
         runUnit: AdminLeaderboardRunUnit? = nil,
         runInterval: Int? = nil,
+        userAttributes: [AdminLeaderboardUserAttributesItem],
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.id = id
@@ -72,6 +75,7 @@ public struct AdminLeaderboard: Codable, Hashable, Sendable {
         self.breakdownAttributes = breakdownAttributes
         self.runUnit = runUnit
         self.runInterval = runInterval
+        self.userAttributes = userAttributes
         self.additionalProperties = additionalProperties
     }
 
@@ -93,6 +97,7 @@ public struct AdminLeaderboard: Codable, Hashable, Sendable {
         self.breakdownAttributes = try container.decode([String].self, forKey: .breakdownAttributes)
         self.runUnit = try container.decodeIfPresent(AdminLeaderboardRunUnit.self, forKey: .runUnit)
         self.runInterval = try container.decodeIfPresent(Int.self, forKey: .runInterval)
+        self.userAttributes = try container.decode([AdminLeaderboardUserAttributesItem].self, forKey: .userAttributes)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -115,6 +120,7 @@ public struct AdminLeaderboard: Codable, Hashable, Sendable {
         try container.encode(self.breakdownAttributes, forKey: .breakdownAttributes)
         try container.encodeIfPresent(self.runUnit, forKey: .runUnit)
         try container.encodeIfPresent(self.runInterval, forKey: .runInterval)
+        try container.encode(self.userAttributes, forKey: .userAttributes)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -135,5 +141,6 @@ public struct AdminLeaderboard: Codable, Hashable, Sendable {
         case breakdownAttributes
         case runUnit
         case runInterval
+        case userAttributes
     }
 }

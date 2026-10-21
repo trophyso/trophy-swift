@@ -38,6 +38,8 @@ public struct UserLeaderboardResponse: Codable, Hashable, Sendable {
     public let runUnit: LeaderboardResponseRunUnit?
     /// The interval between repetitions, relative to the start date and repetition type. Null for one-time leaderboards.
     public let runInterval: Int?
+    /// User attribute filters that a user must match to participate in this leaderboard and appear in its rankings.
+    public let userAttributes: [LeaderboardResponseUserAttributesItem]
     /// The user's current rank in this leaderboard. Null if the user is not on the leaderboard.
     public let rank: Int?
     /// The user's current value in this leaderboard. Null if the user is not on the leaderboard.
@@ -64,6 +66,7 @@ public struct UserLeaderboardResponse: Codable, Hashable, Sendable {
         maxParticipants: Int? = nil,
         runUnit: LeaderboardResponseRunUnit? = nil,
         runInterval: Int? = nil,
+        userAttributes: [LeaderboardResponseUserAttributesItem],
         rank: Int? = nil,
         value: Int? = nil,
         additionalProperties: [String: JSONValue] = .init()
@@ -86,6 +89,7 @@ public struct UserLeaderboardResponse: Codable, Hashable, Sendable {
         self.maxParticipants = maxParticipants
         self.runUnit = runUnit
         self.runInterval = runInterval
+        self.userAttributes = userAttributes
         self.rank = rank
         self.value = value
         self.additionalProperties = additionalProperties
@@ -111,6 +115,7 @@ public struct UserLeaderboardResponse: Codable, Hashable, Sendable {
         self.maxParticipants = try container.decodeIfPresent(Int.self, forKey: .maxParticipants)
         self.runUnit = try container.decodeIfPresent(LeaderboardResponseRunUnit.self, forKey: .runUnit)
         self.runInterval = try container.decodeIfPresent(Int.self, forKey: .runInterval)
+        self.userAttributes = try container.decode([LeaderboardResponseUserAttributesItem].self, forKey: .userAttributes)
         self.rank = try container.decodeIfPresent(Int.self, forKey: .rank)
         self.value = try container.decodeIfPresent(Int.self, forKey: .value)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -137,6 +142,7 @@ public struct UserLeaderboardResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.maxParticipants, forKey: .maxParticipants)
         try container.encodeIfPresent(self.runUnit, forKey: .runUnit)
         try container.encodeIfPresent(self.runInterval, forKey: .runInterval)
+        try container.encode(self.userAttributes, forKey: .userAttributes)
         try container.encodeIfPresent(self.rank, forKey: .rank)
         try container.encodeIfPresent(self.value, forKey: .value)
     }
@@ -161,6 +167,7 @@ public struct UserLeaderboardResponse: Codable, Hashable, Sendable {
         case maxParticipants
         case runUnit
         case runInterval
+        case userAttributes
         case rank
         case value
     }
