@@ -3,6 +3,7 @@ import Foundation
 public final class AdminClient: Sendable {
     public let attributes: AttributesClient
     public let achievements: AdminAchievementsClient
+    public let rewards: AdminRewardsClient
     public let metrics: AdminMetricsClient
     public let leaderboards: AdminLeaderboardsClient
     public let streaks: AdminStreaksClient
@@ -16,6 +17,7 @@ public final class AdminClient: Sendable {
     init(config: ClientConfig) {
         self.attributes = AttributesClient(config: config)
         self.achievements = AdminAchievementsClient(config: config)
+        self.rewards = AdminRewardsClient(config: config)
         self.metrics = AdminMetricsClient(config: config)
         self.leaderboards = AdminLeaderboardsClient(config: config)
         self.streaks = AdminStreaksClient(config: config)

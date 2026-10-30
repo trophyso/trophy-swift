@@ -3,6 +3,7 @@ import Foundation
 /// Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 public final class TrophyApiClient: Sendable {
     public let achievements: AchievementsClient
+    public let rewards: RewardsClient
     public let metrics: MetricsClient
     public let users: UsersClient
     public let streaks: StreaksClient
@@ -71,6 +72,7 @@ public final class TrophyApiClient: Sendable {
             urlSession: urlSession
         )
         self.achievements = AchievementsClient(config: config)
+        self.rewards = RewardsClient(config: config)
         self.metrics = MetricsClient(config: config)
         self.users = UsersClient(config: config)
         self.streaks = StreaksClient(config: config)

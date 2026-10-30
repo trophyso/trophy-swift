@@ -7,4 +7,5 @@ public enum PointsTriggerType: String, Codable, Hashable, CaseIterable, Sendable
     case streak
     case time
     case userCreation = "user_creation"
+    case reward
 }

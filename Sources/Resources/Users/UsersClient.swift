@@ -358,6 +358,54 @@ public final class UsersClient: Sendable {
         )
     }
 
+    /// Get rewards awarded to a user. Filter by redeemed state and the date the reward was awarded.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import Trophy
+    ///
+    /// private func main() async throws {
+    ///     let client = TrophyApiClient(
+    ///         apiKey: "<value>",
+    ///         sdkVersion: "<X-SDK-VERSION>"
+    ///     )
+    ///
+    ///     _ = try await client.users.rewards(
+    ///         id: "id",
+    ///         redeemed: true,
+    ///         startDate: "startDate",
+    ///         endDate: "endDate",
+    ///         skip: 1,
+    ///         limit: 1
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter id: The ID of the user in your database.
+    /// - Parameter redeemed: When set, only return rewards that have or have not been redeemed.
+    /// - Parameter startDate: Inclusive start of the awarded-at range, as YYYY-MM-DD in UTC.
+    /// - Parameter endDate: Inclusive end of the awarded-at range, as YYYY-MM-DD in UTC.
+    /// - Parameter skip: Number of rewards to skip. Defaults to 0.
+    /// - Parameter limit: Maximum number of rewards to return. Defaults to 100 and cannot exceed 100.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func rewards(id: String, redeemed: Bool? = nil, startDate: String? = nil, endDate: String? = nil, skip: Int? = nil, limit: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> [UserRewardResponse] {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/users/\(id)/rewards",
+            queryParams: [
+                "redeemed": redeemed.map { .bool($0) }, 
+                "startDate": startDate.map { .string($0) }, 
+                "endDate": endDate.map { .string($0) }, 
+                "skip": skip.map { .int($0) }, 
+                "limit": limit.map { .int($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: [UserRewardResponse].self
+        )
+    }
+
     /// Get a user's streak data.
     ///
     /// ```swift

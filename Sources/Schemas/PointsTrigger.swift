@@ -21,6 +21,10 @@ public struct PointsTrigger: Codable, Hashable, Sendable {
     public let streakLengthThreshold: Int?
     /// If the trigger has type 'achievement', the name of the achievement
     public let achievementName: String?
+    /// If the trigger has type 'reward', the key of the reward that granted these points.
+    public let rewardKey: String?
+    /// If the trigger has type 'reward', the name of the reward that granted these points.
+    public let rewardName: String?
     /// If the trigger has type 'time', the unit of time after which to award points
     public let timeUnit: PointsTriggerTimeUnit?
     /// If the trigger has type 'time', the numer of units of timeUnit after which to award points
@@ -49,6 +53,8 @@ public struct PointsTrigger: Codable, Hashable, Sendable {
         metricThreshold: Int? = nil,
         streakLengthThreshold: Int? = nil,
         achievementName: String? = nil,
+        rewardKey: String? = nil,
+        rewardName: String? = nil,
         timeUnit: PointsTriggerTimeUnit? = nil,
         timeInterval: Int? = nil,
         userAttributes: [PointsTriggerUserAttributesItem],
@@ -68,6 +74,8 @@ public struct PointsTrigger: Codable, Hashable, Sendable {
         self.metricThreshold = metricThreshold
         self.streakLengthThreshold = streakLengthThreshold
         self.achievementName = achievementName
+        self.rewardKey = rewardKey
+        self.rewardName = rewardName
         self.timeUnit = timeUnit
         self.timeInterval = timeInterval
         self.userAttributes = userAttributes
@@ -90,6 +98,8 @@ public struct PointsTrigger: Codable, Hashable, Sendable {
         self.metricThreshold = try container.decodeIfPresent(Int.self, forKey: .metricThreshold)
         self.streakLengthThreshold = try container.decodeIfPresent(Int.self, forKey: .streakLengthThreshold)
         self.achievementName = try container.decodeIfPresent(String.self, forKey: .achievementName)
+        self.rewardKey = try container.decodeIfPresent(String.self, forKey: .rewardKey)
+        self.rewardName = try container.decodeIfPresent(String.self, forKey: .rewardName)
         self.timeUnit = try container.decodeIfPresent(PointsTriggerTimeUnit.self, forKey: .timeUnit)
         self.timeInterval = try container.decodeIfPresent(Int.self, forKey: .timeInterval)
         self.userAttributes = try container.decode([PointsTriggerUserAttributesItem].self, forKey: .userAttributes)
@@ -113,6 +123,8 @@ public struct PointsTrigger: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.metricThreshold, forKey: .metricThreshold)
         try container.encodeIfPresent(self.streakLengthThreshold, forKey: .streakLengthThreshold)
         try container.encodeIfPresent(self.achievementName, forKey: .achievementName)
+        try container.encodeIfPresent(self.rewardKey, forKey: .rewardKey)
+        try container.encodeIfPresent(self.rewardName, forKey: .rewardName)
         try container.encodeIfPresent(self.timeUnit, forKey: .timeUnit)
         try container.encodeIfPresent(self.timeInterval, forKey: .timeInterval)
         try container.encode(self.userAttributes, forKey: .userAttributes)
@@ -134,6 +146,8 @@ public struct PointsTrigger: Codable, Hashable, Sendable {
         case metricThreshold
         case streakLengthThreshold
         case achievementName
+        case rewardKey
+        case rewardName
         case timeUnit
         case timeInterval
         case userAttributes

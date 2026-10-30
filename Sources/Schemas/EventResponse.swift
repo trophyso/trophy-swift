@@ -15,6 +15,8 @@ public struct EventResponse: Codable, Hashable, Sendable {
     public let points: [String: MetricEventPointsResponse]
     /// A map of leaderboards by key. Only contains leaderboards that were affected by the event.
     public let leaderboards: [String: MetricEventLeaderboardResponse]
+    /// Rewards awarded as a result of this event.
+    public let rewards: [UserRewardResponse]
     /// The idempotency key used for the event, if one was provided.
     public let idempotencyKey: String?
     /// Whether the event was replayed due to idempotency.
@@ -30,6 +32,7 @@ public struct EventResponse: Codable, Hashable, Sendable {
         currentStreak: MetricEventStreakResponse,
         points: [String: MetricEventPointsResponse],
         leaderboards: [String: MetricEventLeaderboardResponse],
+        rewards: [UserRewardResponse],
         idempotencyKey: String? = nil,
         idempotentReplayed: Bool? = nil,
         additionalProperties: [String: JSONValue] = .init()
@@ -41,6 +44,7 @@ public struct EventResponse: Codable, Hashable, Sendable {
         self.currentStreak = currentStreak
         self.points = points
         self.leaderboards = leaderboards
+        self.rewards = rewards
         self.idempotencyKey = idempotencyKey
         self.idempotentReplayed = idempotentReplayed
         self.additionalProperties = additionalProperties
@@ -55,6 +59,7 @@ public struct EventResponse: Codable, Hashable, Sendable {
         self.currentStreak = try container.decode(MetricEventStreakResponse.self, forKey: .currentStreak)
         self.points = try container.decode([String: MetricEventPointsResponse].self, forKey: .points)
         self.leaderboards = try container.decode([String: MetricEventLeaderboardResponse].self, forKey: .leaderboards)
+        self.rewards = try container.decode([UserRewardResponse].self, forKey: .rewards)
         self.idempotencyKey = try container.decodeIfPresent(String.self, forKey: .idempotencyKey)
         self.idempotentReplayed = try container.decodeIfPresent(Bool.self, forKey: .idempotentReplayed)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -70,6 +75,7 @@ public struct EventResponse: Codable, Hashable, Sendable {
         try container.encode(self.currentStreak, forKey: .currentStreak)
         try container.encode(self.points, forKey: .points)
         try container.encode(self.leaderboards, forKey: .leaderboards)
+        try container.encode(self.rewards, forKey: .rewards)
         try container.encodeIfPresent(self.idempotencyKey, forKey: .idempotencyKey)
         try container.encodeIfPresent(self.idempotentReplayed, forKey: .idempotentReplayed)
     }
@@ -83,6 +89,7 @@ public struct EventResponse: Codable, Hashable, Sendable {
         case currentStreak
         case points
         case leaderboards
+        case rewards
         case idempotencyKey
         case idempotentReplayed
     }

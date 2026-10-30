@@ -164,6 +164,94 @@ try await main()
 </dl>
 </details>
 
+## Rewards
+<details><summary><code>client.rewards.<a href="/Sources/Resources/Rewards/RewardsClient.swift">redeem</a>(key: String, request: Requests.RewardsRedeemRequest, requestOptions: RequestOptions?) -> RedeemRewardResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Redeem a reward for a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.rewards.redeem(
+        key: "key",
+        request: .init(user: UpsertedUser(
+            id: "user-id"
+        ))
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**key:** `String` — The key of the reward to redeem.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.RewardsRedeemRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Metrics
 <details><summary><code>client.metrics.<a href="/Sources/Resources/Metrics/MetricsClient.swift">event</a>(key: String, idempotencyKey: String?, request: Requests.MetricsEventRequest, requestOptions: RequestOptions?) -> EventResponse</code></summary>
 <dl>
@@ -1110,6 +1198,127 @@ try await main()
 <dd>
 
 **includeIncomplete:** `JSONValue?` — When set to 'true', returns both completed and incomplete achievements for the user. When omitted or set to any other value, returns only completed achievements.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="/Sources/Resources/Users/UsersClient.swift">rewards</a>(id: String, redeemed: Bool?, startDate: String?, endDate: String?, skip: Int?, limit: Int?, requestOptions: RequestOptions?) -> [UserRewardResponse]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get rewards awarded to a user. Filter by redeemed state and the date the reward was awarded.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.users.rewards(
+        id: "id",
+        redeemed: true,
+        startDate: "startDate",
+        endDate: "endDate",
+        skip: 1,
+        limit: 1
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the user in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redeemed:** `Bool?` — When set, only return rewards that have or have not been redeemed.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**startDate:** `String?` — Inclusive start of the awarded-at range, as YYYY-MM-DD in UTC.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**endDate:** `String?` — Inclusive end of the awarded-at range, as YYYY-MM-DD in UTC.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `Int?` — Number of rewards to skip. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Int?` — Maximum number of rewards to return. Defaults to 100 and cannot exceed 100.
     
 </dd>
 </dl>
@@ -3144,6 +3353,413 @@ try await main()
 <dd>
 
 **id:** `String` — The UUID of the achievement to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Admin Rewards
+<details><summary><code>client.admin.rewards.<a href="/Sources/Resources/Admin/Rewards/AdminRewardsClient.swift">list</a>(limit: Int?, skip: Int?, requestOptions: RequestOptions?) -> ListRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List rewards.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.list(
+        limit: 1,
+        skip: 1
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**limit:** `Int?` — Number of records to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `Int?` — Number of records to skip from the start of the list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.<a href="/Sources/Resources/Admin/Rewards/AdminRewardsClient.swift">create</a>(request: CreateRewardsRequest, requestOptions: RequestOptions?) -> CreateRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create rewards. Optionally include triggers in each reward payload to create them alongside the reward. A reward with any invalid trigger is not created.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.create(request: [
+        CreateRewardRequestItem(
+            name: "Welcome bonus",
+            key: "welcome-bonus",
+            description: "Points for finishing onboarding",
+            type: .points,
+            pointsSystemId: "660f9500-f30c-42e5-b827-557766550001",
+            points: 100,
+            maxRedemptions: 1,
+            triggers: [
+                CreateRewardTriggerRequestItem(
+                    type: .achievement,
+                    status: .active,
+                    achievementId: "770a0600-a41d-43f6-c938-668877660002"
+                )
+            ]
+        )
+    ])
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CreateRewardsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.<a href="/Sources/Resources/Admin/Rewards/AdminRewardsClient.swift">delete</a>(ids: [String]?, requestOptions: RequestOptions?) -> DeleteRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete rewards by ID. Maximum 100 reward IDs per request. A deleted reward's triggers are deleted too.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.delete(ids: [
+        "550e8400-e29b-41d4-a716-446655440000"
+    ])
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**ids:** `[String]?` — Reward IDs to delete. Can be repeated or comma-separated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.<a href="/Sources/Resources/Admin/Rewards/AdminRewardsClient.swift">update</a>(request: UpdateRewardsRequest, requestOptions: RequestOptions?) -> UpdateRewardsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update rewards by ID. Maximum 100 rewards per request. Only provided fields are updated; omitted fields are preserved. Use the reward triggers endpoints to change a reward's triggers.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.update(request: [
+        UpdateRewardRequestItem(
+            id: "550e8400-e29b-41d4-a716-446655440000",
+            status: .active,
+            points: 150
+        )
+    ])
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `UpdateRewardsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.<a href="/Sources/Resources/Admin/Rewards/AdminRewardsClient.swift">get</a>(id: String, requestOptions: RequestOptions?) -> AdminReward</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a reward by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.get(id: "550e8400-e29b-41d4-a716-446655440000")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The ID of the reward.
     
 </dd>
 </dl>
@@ -6754,6 +7370,454 @@ try await main()
 <dd>
 
 **id:** `String` — The UUID of the points trigger.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Admin Rewards Triggers
+<details><summary><code>client.admin.rewards.triggers.<a href="/Sources/Resources/Admin/Rewards/Triggers/RewardsTriggersClient.swift">list</a>(rewardId: String, limit: Int?, skip: Int?, requestOptions: RequestOptions?) -> ListRewardTriggersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List triggers for a reward. Active triggers are listed first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.triggers.list(
+        rewardId: "550e8400-e29b-41d4-a716-446655440000",
+        limit: 1,
+        skip: 1
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rewardId:** `String` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Int?` — Maximum number of results to return (1-100, default 10).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `Int?` — Number of results to skip for pagination (default 0).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.triggers.<a href="/Sources/Resources/Admin/Rewards/Triggers/RewardsTriggersClient.swift">create</a>(rewardId: String, request: CreateRewardTriggersRequest, requestOptions: RequestOptions?) -> CreateRewardTriggersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create reward triggers in bulk. Maximum 100 triggers per request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.triggers.create(
+        rewardId: "550e8400-e29b-41d4-a716-446655440000",
+        request: [
+            CreateRewardTriggerRequestItem(
+                type: .metric,
+                metricId: "990c2800-c63f-45b8-e15a-88aa99880004",
+                metricThreshold: 10
+            )
+        ]
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rewardId:** `String` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CreateRewardTriggersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.triggers.<a href="/Sources/Resources/Admin/Rewards/Triggers/RewardsTriggersClient.swift">delete</a>(rewardId: String, ids: [String]?, requestOptions: RequestOptions?) -> DeleteRewardTriggersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete reward triggers by ID. Maximum 100 trigger IDs per request. A reward with no triggers is not awarded until a trigger is added.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.triggers.delete(
+        rewardId: "550e8400-e29b-41d4-a716-446655440000",
+        ids: [
+            "880b1700-b52e-44a7-d049-779988770003"
+        ]
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rewardId:** `String` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ids:** `[String]?` — Trigger IDs to delete. Can be repeated or comma-separated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.triggers.<a href="/Sources/Resources/Admin/Rewards/Triggers/RewardsTriggersClient.swift">update</a>(rewardId: String, request: UpdateRewardTriggersRequest, requestOptions: RequestOptions?) -> UpdateRewardTriggersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update reward triggers in bulk. Maximum 100 triggers per request. Only provided fields are updated; omitted fields are preserved. A trigger keeps its ID when its criteria change.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.triggers.update(
+        rewardId: "550e8400-e29b-41d4-a716-446655440000",
+        request: [
+            UpdateRewardTriggersRequestItem(
+                id: "880b1700-b52e-44a7-d049-779988770003",
+                status: .active
+            )
+        ]
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rewardId:** `String` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateRewardTriggersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.admin.rewards.triggers.<a href="/Sources/Resources/Admin/Rewards/Triggers/RewardsTriggersClient.swift">get</a>(rewardId: String, id: String, requestOptions: RequestOptions?) -> AdminRewardTrigger</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a single reward trigger by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.admin.rewards.triggers.get(
+        rewardId: "550e8400-e29b-41d4-a716-446655440000",
+        id: "880b1700-b52e-44a7-d049-779988770003"
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**rewardId:** `String` — The UUID of the reward.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `String` — The UUID of the reward trigger.
     
 </dd>
 </dl>
