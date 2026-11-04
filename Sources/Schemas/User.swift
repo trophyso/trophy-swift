@@ -20,6 +20,8 @@ public struct User: Codable, Hashable, Sendable {
     public let attributes: [String: String]
     /// Whether the user is in the control group, meaning they do not receive emails or other communications from Trophy.
     public let control: Bool
+    /// Whether the user is opted into Trophy's agentic messaging.
+    public let agenticMessagingEnabled: Bool
     /// The date and time the user was created, in ISO 8601 format.
     public let created: Date
     /// The date and time the user was last updated, in ISO 8601 format.
@@ -37,6 +39,7 @@ public struct User: Codable, Hashable, Sendable {
         subscribeToEmails: Bool,
         attributes: [String: String],
         control: Bool,
+        agenticMessagingEnabled: Bool,
         created: Date,
         updated: Date,
         additionalProperties: [String: JSONValue] = .init()
@@ -50,6 +53,7 @@ public struct User: Codable, Hashable, Sendable {
         self.subscribeToEmails = subscribeToEmails
         self.attributes = attributes
         self.control = control
+        self.agenticMessagingEnabled = agenticMessagingEnabled
         self.created = created
         self.updated = updated
         self.additionalProperties = additionalProperties
@@ -66,6 +70,7 @@ public struct User: Codable, Hashable, Sendable {
         self.subscribeToEmails = try container.decode(Bool.self, forKey: .subscribeToEmails)
         self.attributes = try container.decode([String: String].self, forKey: .attributes)
         self.control = try container.decode(Bool.self, forKey: .control)
+        self.agenticMessagingEnabled = try container.decode(Bool.self, forKey: .agenticMessagingEnabled)
         self.created = try container.decode(Date.self, forKey: .created)
         self.updated = try container.decode(Date.self, forKey: .updated)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -83,6 +88,7 @@ public struct User: Codable, Hashable, Sendable {
         try container.encode(self.subscribeToEmails, forKey: .subscribeToEmails)
         try container.encode(self.attributes, forKey: .attributes)
         try container.encode(self.control, forKey: .control)
+        try container.encode(self.agenticMessagingEnabled, forKey: .agenticMessagingEnabled)
         try container.encode(self.created, forKey: .created)
         try container.encode(self.updated, forKey: .updated)
     }
@@ -98,6 +104,7 @@ public struct User: Codable, Hashable, Sendable {
         case subscribeToEmails
         case attributes
         case control
+        case agenticMessagingEnabled
         case created
         case updated
     }
