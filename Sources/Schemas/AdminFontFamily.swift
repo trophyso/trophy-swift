@@ -8,6 +8,7 @@ public enum AdminFontFamily: String, Codable, Hashable, CaseIterable, Sendable {
     case geometricSans = "GEOMETRIC_SANS"
     case heavySans = "HEAVY_SANS"
     case roundedSans = "ROUNDED_SANS"
+    case systemSans = "SYSTEM_SANS"
     case modernSerif = "MODERN_SERIF"
     case bookSerif = "BOOK_SERIF"
     case monospace = "MONOSPACE"
