@@ -150,7 +150,7 @@ public final class UsersClient: Sendable {
         )
     }
 
-    /// Get a user's notification preferences.
+    /// Get a user's notification, streak and agentic messaging preferences.
     ///
     /// ```swift
     /// import Foundation
@@ -179,7 +179,7 @@ public final class UsersClient: Sendable {
         )
     }
 
-    /// Update a user's notification and streak preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
+    /// Update a user's notification, streak and agentic messaging preferences. Streak preferences other than `streak.enabled` require streak customization to be enabled in your Trophy dashboard settings.
     ///
     /// ```swift
     /// import Foundation
