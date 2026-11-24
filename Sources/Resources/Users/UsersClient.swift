@@ -406,6 +406,186 @@ public final class UsersClient: Sendable {
         )
     }
 
+    /// Get a user's goals, each with its steps. Filter by status, and page through them with `skip` and `limit`.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import Trophy
+    ///
+    /// private func main() async throws {
+    ///     let client = TrophyApiClient(
+    ///         apiKey: "<value>",
+    ///         sdkVersion: "<X-SDK-VERSION>"
+    ///     )
+    ///
+    ///     _ = try await client.users.goals(
+    ///         id: "user-123",
+    ///         status: .active,
+    ///         skip: 1,
+    ///         limit: 1
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter id: The user's ID in your database.
+    /// - Parameter status: When set, only return goals with this status. A goal's steps come with it, whatever their own status.
+    /// - Parameter skip: Number of goals to skip. Defaults to 0.
+    /// - Parameter limit: Maximum number of goals to return. Defaults to 100 and cannot exceed 100.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func goals(id: String, status: GoalStatus? = nil, skip: Int? = nil, limit: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> [GoalResponse] {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/users/\(id)/goals",
+            queryParams: [
+                "status": status.map { .string($0.rawValue) }, 
+                "skip": skip.map { .int($0) }, 
+                "limit": limit.map { .int($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: [GoalResponse].self
+        )
+    }
+
+    /// Create a goal for a user, or with `parent` a step at the end of that goal's steps.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import Trophy
+    ///
+    /// private func main() async throws {
+    ///     let client = TrophyApiClient(
+    ///         apiKey: "<value>",
+    ///         sdkVersion: "<X-SDK-VERSION>"
+    ///     )
+    ///
+    ///     _ = try await client.users.createGoal(
+    ///         id: "user-123",
+    ///         request: .init(
+    ///             key: "spanish-exam",
+    ///             label: "Spanish B1 exam",
+    ///             completion: .none,
+    ///             dueAt: "2026-11-20T09:00:00Z"
+    ///         )
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter id: The user's ID in your database.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func createGoal(id: String, request: Requests.CreateGoalRequest, requestOptions: RequestOptions? = nil) async throws -> GoalResponse {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/users/\(id)/goals",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: GoalResponse.self
+        )
+    }
+
+    /// Get a user's goal or step by its key, with a goal's steps.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import Trophy
+    ///
+    /// private func main() async throws {
+    ///     let client = TrophyApiClient(
+    ///         apiKey: "<value>",
+    ///         sdkVersion: "<X-SDK-VERSION>"
+    ///     )
+    ///
+    ///     _ = try await client.users.getGoal(
+    ///         id: "user-123",
+    ///         key: "spanish-exam"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter id: The user's ID in your database.
+    /// - Parameter key: The goal's or step's key.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func getGoal(id: String, key: String, requestOptions: RequestOptions? = nil) async throws -> GoalResponse {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/users/\(id)/goals/\(key)",
+            requestOptions: requestOptions,
+            responseType: GoalResponse.self
+        )
+    }
+
+    /// Delete a user's goal.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import Trophy
+    ///
+    /// private func main() async throws {
+    ///     let client = TrophyApiClient(
+    ///         apiKey: "<value>",
+    ///         sdkVersion: "<X-SDK-VERSION>"
+    ///     )
+    ///
+    ///     _ = try await client.users.deleteGoal(
+    ///         id: "user-123",
+    ///         key: "spanish-exam"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter id: The user's ID in your database.
+    /// - Parameter key: The goal's key.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func deleteGoal(id: String, key: String, requestOptions: RequestOptions? = nil) async throws -> Void {
+        return try await httpClient.performRequest(
+            method: .delete,
+            path: "/users/\(id)/goals/\(key)",
+            requestOptions: requestOptions
+        )
+    }
+
+    /// Update a goal for a user.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import Trophy
+    ///
+    /// private func main() async throws {
+    ///     let client = TrophyApiClient(
+    ///         apiKey: "<value>",
+    ///         sdkVersion: "<X-SDK-VERSION>"
+    ///     )
+    ///
+    ///     _ = try await client.users.updateGoal(
+    ///         id: "user-123",
+    ///         key: "first-essay",
+    ///         request: .init(completedAt: "2026-11-12T14:21:08Z")
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter id: The user's ID in your database.
+    /// - Parameter key: The goal's key.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func updateGoal(id: String, key: String, request: Requests.UpdateGoalRequest, requestOptions: RequestOptions? = nil) async throws -> GoalResponse {
+        return try await httpClient.performRequest(
+            method: .patch,
+            path: "/users/\(id)/goals/\(key)",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: GoalResponse.self
+        )
+    }
+
     /// Get a user's streak data.
     ///
     /// ```swift

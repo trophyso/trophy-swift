@@ -1338,6 +1338,463 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.users.<a href="/Sources/Resources/Users/UsersClient.swift">goals</a>(id: String, status: GoalStatus?, skip: Int?, limit: Int?, requestOptions: RequestOptions?) -> [GoalResponse]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a user's goals, each with its steps. Filter by status, and page through them with `skip` and `limit`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.users.goals(
+        id: "user-123",
+        status: .active,
+        skip: 1,
+        limit: 1
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `GoalStatus?` — When set, only return goals with this status. A goal's steps come with it, whatever their own status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip:** `Int?` — Number of goals to skip. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `Int?` — Maximum number of goals to return. Defaults to 100 and cannot exceed 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="/Sources/Resources/Users/UsersClient.swift">createGoal</a>(id: String, request: Requests.CreateGoalRequest, requestOptions: RequestOptions?) -> GoalResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a goal for a user, or with `parent` a step at the end of that goal's steps.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.users.createGoal(
+        id: "user-123",
+        request: .init(
+            key: "spanish-exam",
+            label: "Spanish B1 exam",
+            completion: .none,
+            dueAt: "2026-11-20T09:00:00Z"
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.CreateGoalRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="/Sources/Resources/Users/UsersClient.swift">getGoal</a>(id: String, key: String, requestOptions: RequestOptions?) -> GoalResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a user's goal or step by its key, with a goal's steps.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.users.getGoal(
+        id: "user-123",
+        key: "spanish-exam"
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` — The goal's or step's key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="/Sources/Resources/Users/UsersClient.swift">deleteGoal</a>(id: String, key: String, requestOptions: RequestOptions?) -> Void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a user's goal.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.users.deleteGoal(
+        id: "user-123",
+        key: "spanish-exam"
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` — The goal's key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.users.<a href="/Sources/Resources/Users/UsersClient.swift">updateGoal</a>(id: String, key: String, request: Requests.UpdateGoalRequest, requestOptions: RequestOptions?) -> GoalResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a goal for a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Trophy
+
+private func main() async throws {
+    let client = TrophyApiClient(
+        apiKey: "<value>",
+        sdkVersion: "<X-SDK-VERSION>"
+    )
+
+    _ = try await client.users.updateGoal(
+        id: "user-123",
+        key: "first-essay",
+        request: .init(completedAt: "2026-11-12T14:21:08Z")
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `String` — The user's ID in your database.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**key:** `String` — The goal's key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.UpdateGoalRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.users.<a href="/Sources/Resources/Users/UsersClient.swift">streak</a>(id: String, historyPeriods: Int?, requestOptions: RequestOptions?) -> StreakResponse</code></summary>
 <dl>
 <dd>
